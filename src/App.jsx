@@ -7,6 +7,7 @@ import Expenses from "./pages/Expenses";
 import Soil from "./pages/Soil";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddnewCrop from "./Pages/AddnewCrop";
+import Profile from "./components/Profile";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/recommendation" element={<ProtectedRoute><Recommendation /></ProtectedRoute>} />
         <Route path="/expenses" element={<ProtectedRoute><Expenses /></ProtectedRoute>} />
         <Route path="/soil" element={<ProtectedRoute><Soil /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );

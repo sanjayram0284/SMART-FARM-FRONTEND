@@ -84,3 +84,22 @@
 .navbar-profile button:hover {
   background: #c8e6c9;
 }
+.profile-click {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn {
+  margin-left: 10px;
+  padding: 6px 12px;
+  border: none;
+  background: #2e7d32;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #1b5e20;
+}

@@ -12,30 +12,43 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">🌱 Smart Farm</div>
+      {/* 🌱 Logo */}
+      <div className="navbar-logo" onClick={() => navigate("/dashboard")}>
+        🌱 Smart Farm
+      </div>
 
+      {/* 🔗 Navigation Links */}
       <div className="navbar-links">
         <NavLink to="/dashboard">Dashboard</NavLink>
         <NavLink to="/recommendation">Recommendation</NavLink>
         <NavLink to="/expenses">Expenses</NavLink>
         <NavLink to="/soil">Soil</NavLink>
-        <NavLink to="/addnewcrop">Add new Crop</NavLink>
+        <NavLink to="/addnewcrop">Add New Crop</NavLink>
       </div>
 
+      {/* 👤 Profile Section */}
       <div className="navbar-profile">
-        {user?.profileImage ? (
-          <img
-            src={user.profileImage}
-            alt="profile"
-            className="profile-pic"
-          />
-        ) : (
-          <span className="profile-placeholder">
-            {user?.name?.charAt(0)}
-          </span>
-        )}
+        <div
+          className="profile-click"
+          onClick={() => navigate("/profile")}
+          title="View Profile"
+        >
+          {user?.profileImage ? (
+            <img
+              src={user.profileImage}
+              alt="profile"
+              className="profile-pic"
+            />
+          ) : (
+            <span className="profile-placeholder">
+              {user?.name?.charAt(0)?.toUpperCase()}
+            </span>
+          )}
+        </div>
 
-        <button onClick={logout}>Logout</button>
+        <button className="logout-btn" onClick={logout}>
+          Logout
+        </button>
       </div>
     </nav>
   );
