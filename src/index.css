@@ -52,6 +52,6 @@ body,
 body {
     background-image: url("assets/h.jpg");
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: center;
 }
