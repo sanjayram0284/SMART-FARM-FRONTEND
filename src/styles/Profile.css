@@ -86,3 +86,29 @@
   background: #9ccc9c;
   cursor: not-allowed;
 }
+.profile-box p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 14px;
+  margin: 8px 0;
+
+  background-color: #f5f9ff;   /* light blue-gray */
+  border-radius: 8px;
+
+  font-size: 15px;
+  color: #333;
+}
+
+/* Label (Name, Email, Phone) */
+.profile-box p::before {
+  content: attr(data-label);
+  font-weight: 600;
+  color: #1e3a8a; /* dark blue */
+}
+
+/* Value text */
+.profile-box p span {
+  color: #111827;
+}

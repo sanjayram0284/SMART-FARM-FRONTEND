@@ -5,7 +5,6 @@ import { addNewCrop } from "../services/api";
 import "../styles/AddNewCrop.css";
 
 export default function AddNewCrop() {
-  const user = JSON.parse(localStorage.getItem("user")); // ✅ logged-in user
 
   const [form, setForm] = useState({
     name: "",
@@ -28,7 +27,7 @@ export default function AddNewCrop() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ VERY IMPORTANT: include userEmail
+    // ✅ JWT identifies the user — NO userEmail needed
     const payload = {
       name: form.name,
       suitableSeason: form.suitableSeason,
@@ -39,8 +38,7 @@ export default function AddNewCrop() {
       minTemperature: Number(form.minTemperature),
       maxTemperature: Number(form.maxTemperature),
       estimatedCost: Number(form.estimatedCost),
-      plantedDate: form.plantedDate,
-      userEmail: user.email        // 🔥 THIS FIXES EVERYTHING
+      plantedDate: form.plantedDate
     };
 
     try {
@@ -73,19 +71,91 @@ export default function AddNewCrop() {
         <h2>Add New Crop</h2>
 
         <form className="crop-form" onSubmit={handleSubmit}>
-          <input name="name" placeholder="Crop Name" value={form.name} onChange={handleChange} required />
-          <input name="suitableSeason" placeholder="Season" value={form.suitableSeason} onChange={handleChange} required />
-          <input name="soilType" placeholder="Soil Type" value={form.soilType} onChange={handleChange} required />
+          <input
+            name="name"
+            placeholder="Crop Name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
 
-          <input type="number" name="minMoisture" placeholder="Min Moisture" value={form.minMoisture} onChange={handleChange} required />
-          <input type="number" name="maxMoisture" placeholder="Max Moisture" value={form.maxMoisture} onChange={handleChange} required />
-          <input type="number" name="moisture" placeholder="Current Moisture" value={form.moisture} onChange={handleChange} required />
+          <input
+            name="suitableSeason"
+            placeholder="Season"
+            value={form.suitableSeason}
+            onChange={handleChange}
+            required
+          />
 
-          <input type="number" name="minTemperature" placeholder="Min Temperature" value={form.minTemperature} onChange={handleChange} required />
-          <input type="number" name="maxTemperature" placeholder="Max Temperature" value={form.maxTemperature} onChange={handleChange} required />
+          <input
+            name="soilType"
+            placeholder="Soil Type"
+            value={form.soilType}
+            onChange={handleChange}
+            required
+          />
 
-          <input type="number" name="estimatedCost" placeholder="Estimated Cost" value={form.estimatedCost} onChange={handleChange} required />
-          <input type="date" name="plantedDate" value={form.plantedDate} onChange={handleChange} required />
+          <input
+            type="number"
+            name="minMoisture"
+            placeholder="Min Moisture"
+            value={form.minMoisture}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="number"
+            name="maxMoisture"
+            placeholder="Max Moisture"
+            value={form.maxMoisture}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="number"
+            name="moisture"
+            placeholder="Current Moisture"
+            value={form.moisture}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="number"
+            name="minTemperature"
+            placeholder="Min Temperature"
+            value={form.minTemperature}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="number"
+            name="maxTemperature"
+            placeholder="Max Temperature"
+            value={form.maxTemperature}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="number"
+            name="estimatedCost"
+            placeholder="Estimated Cost"
+            value={form.estimatedCost}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="date"
+            name="plantedDate"
+            value={form.plantedDate}
+            onChange={handleChange}
+            required
+          />
 
           <button type="submit">Add Crop</button>
         </form>

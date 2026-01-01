@@ -9,20 +9,17 @@ export default function Soil() {
   const [crops, setCrops] = useState([]);
   const [selectedSoil, setSelectedSoil] = useState("");
 
-  const userEmail = localStorage.getItem("userEmail"); // 🔥 REQUIRED
-
+  // ✅ Load soils for logged-in user (JWT based)
   useEffect(() => {
-    if (!userEmail) return;
-
-    getSoils(userEmail)
+    getSoils()
       .then(res => setSoils(res.data))
       .catch(err => console.error(err));
-  }, [userEmail]);
+  }, []);
 
   const handleSoilClick = (soilType) => {
     setSelectedSoil(soilType);
 
-    getCropsBySoil(soilType, userEmail)
+    getCropsBySoil(soilType)
       .then(res => setCrops(res.data))
       .catch(err => console.error(err));
   };

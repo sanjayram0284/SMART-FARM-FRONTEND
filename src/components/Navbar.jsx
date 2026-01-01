@@ -3,11 +3,13 @@ import "../styles/Navbar.css";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+
+  // ✅ SAFE parsing (prevents crash)
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   const logout = () => {
     localStorage.clear();
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -35,13 +37,13 @@ export default function Navbar() {
         >
           {user?.profileImage ? (
             <img
-              src={user.profileImage}
+              src={`${user.profileImage}?t=${Date.now()}`} // ✅ CACHE BUST
               alt="profile"
               className="profile-pic"
             />
           ) : (
             <span className="profile-placeholder">
-              {user?.name?.charAt(0)?.toUpperCase()}
+              {user?.name?.charAt(0)?.toUpperCase() || "U"}
             </span>
           )}
         </div>

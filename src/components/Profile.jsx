@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import axios from "axios";
+import API from "../services/api";
 import "../styles/Profile.css";
 
 export default function Profile() {
@@ -18,26 +18,30 @@ export default function Profile() {
 
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("email", user.email);
 
     try {
       setLoading(true);
 
-      const res = await axios.post(
-        "http://localhost:8080/api/users/upload-profile",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      const res = await API.post("/users/upload-profile", formData);
 
-      localStorage.setItem("user", JSON.stringify(res.data));
-      setUser(res.data);
+      // 🔑 IMPORTANT: keep old token
+      const updatedUser = {
+        ...user,
+        profileImage: res.data.profileImage
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      setUser(updatedUser);
+
       alert("Profile updated");
-    } catch {
+    } catch (err) {
       alert("Upload failed");
     } finally {
       setLoading(false);
     }
   };
+
+  if (!user) return <p>Not logged in</p>;
 
   return (
     <div className="profile-layout">
@@ -45,31 +49,23 @@ export default function Profile() {
 
       <div className="profile-wrapper">
         <div className="profile-box">
-          <h2 className="profile-title">My Profile</h2>
+          <h2>My Profile</h2>
 
           <img
             src={user.profileImage || "https://via.placeholder.com/160"}
-            alt="profile"
             className="profile-image-large"
           />
 
-          <div className="profile-details">
-            <p><span>Name :</span> {user.name}</p>
-            <p><span>Email :</span> {user.email}</p>
-            <p><span>Phone :</span> {user.phone || "Not provided"}</p>
-          </div>
+          <p data-label="Name"> {user.name}</p>
+           <p data-label="Email"> {user.email}</p>
+          <p data-label="Phone"> {user.phone || "Not provided"}</p>
 
-          <div className="profile-actions">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
 
-            <button onClick={handleUpload} disabled={loading}>
-              {loading ? "Uploading..." : "Upload Picture"}
-            </button>
-          </div>
+
+          <input type="file" onChange={e => setFile(e.target.files[0])} />
+          <button onClick={handleUpload} disabled={loading}>
+            Upload
+          </button>
         </div>
       </div>
 

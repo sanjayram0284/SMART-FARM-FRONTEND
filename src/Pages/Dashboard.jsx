@@ -19,18 +19,11 @@ export default function Dashboard() {
   const [crops, setCrops] = useState([]);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    const userEmail = localStorage.getItem("userEmail");
-
-    if (!userEmail) {
-      alert("Please login first");
-      return;
-    }
-
-    getCrops(userEmail)
-      .then((res) => setCrops(res.data))
-      .catch((err) => console.error(err));
-  }, []);
+ useEffect(() => {
+  getCrops()
+    .then((res) => setCrops(res.data))
+    .catch((err) => console.error(err));
+}, []);
 
   const filteredCrops = crops.filter(
     (crop) =>

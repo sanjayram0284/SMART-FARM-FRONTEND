@@ -18,18 +18,12 @@ export default function Recommendation() {
   const [crops, setCrops] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // 🔐 logged-in user
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userEmail = user?.email;
-
-  // ✅ Load soil types USER-WISE
+  // ✅ Load soil types for logged-in user (JWT based)
   useEffect(() => {
-    if (!userEmail) return;
-
-    getSoils(userEmail)
+    getSoils()
       .then(res => setSoils(res.data))
       .catch(err => console.error(err));
-  }, [userEmail]);
+  }, []);
 
   const handleSearch = async () => {
     if (!soil || !season) {
@@ -39,7 +33,7 @@ export default function Recommendation() {
 
     try {
       setLoading(true);
-      const res = await getRecommendations(soil, season, userEmail);
+      const res = await getRecommendations(soil, season);
       setCrops(res.data);
     } catch (err) {
       alert("No recommendations found");

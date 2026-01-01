@@ -14,17 +14,9 @@ export default function Expenses() {
   const [history, setHistory] = useState([]);
   const [activeCrop, setActiveCrop] = useState(null);
 
- const userEmail = JSON.parse(localStorage.getItem("user"))?.email;
-
-
   const loadCrops = () => {
-    if (!userEmail) {
-      alert("Please login first");
-      return;
-    }
-
-    // ✅ USER-SPECIFIC CROPS
-    getCrops(userEmail)
+    // ✅ JWT identifies user
+    getCrops()
       .then(res => setCrops(res.data))
       .catch(err => console.error(err));
   };
@@ -50,17 +42,15 @@ export default function Expenses() {
 
     try {
       await updateExpense({
-  cropName,
-  amount: Number(amount)
-}, userEmail);
-
-const res = await getExpenseHistory(cropName, userEmail);
-
+        cropName,
+        amount: Number(amount)
+      });
 
       alert("Expense updated");
       setAmounts(prev => ({ ...prev, [cropName]: "" }));
       loadCrops(); // 🔥 refresh updated value
     } catch (err) {
+      console.error(err);
       alert("Update failed");
     }
   };
