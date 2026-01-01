@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Dashboard from "./pages/Dashboard";
-import Recommendation from "./pages/Recommendation";
-import Expenses from "./pages/Expenses";
-import Soil from "./pages/Soil";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import Dashboard from "./Pages/Dashboard";
+import Recommendation from "./Pages/Recommendation";
+import Expenses from "./Pages/Expenses";
+import Soil from "./Pages/Soil";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddnewCrop from "./Pages/AddnewCrop";
 import Profile from "./components/Profile";
